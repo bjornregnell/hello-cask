@@ -1,3 +1,3 @@
 mkdir -p target
-scala-cli --power package hello-cask.scala -f -o target/hello-cask --assembly
-target/hello-cask
+scala --power package hello-cask.scala -f -o target/hello-cask.jar --assembly --preamble=false
+java -jar target/hello-cask.jar
