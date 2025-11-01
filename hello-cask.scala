@@ -1,21 +1,24 @@
 //> using scala 3.7.3
 //> using dep com.lihaoyi::cask:0.11.3
 
-object MinimalApplication extends cask.MainRoutes{
+object MinimalApplication extends cask.MainRoutes:
   @cask.get("/")
-  def hello() = {
+  def hello() = 
     println("/ requested -- serving hello world")
-    "Hello World!"
-  }
+    "Hello World!\n"
+  end hello
 
   @cask.post("/do-thing")
-  def doThing(request: cask.Request) = {
+  def doThing(request: cask.Request) = 
     val response = request.text().reverse
     println(s"/$request POST requested-- serving reversed: $response")
     response
-  }
+  end doThing
+
+  override def host: String = "0.0.0.0"
+  override def port: Int = 8080
 
   initialize()
-  println("hello-cask is running at http://localhost:8080")
-  println("""try "curl -d 'some data' http://localhost:8080/do-thing" """)
-}
+  println(s"hello-cask is running at ${host}:$port")
+  println(s"""try "curl -d 'some data' http://localhost:$port/do-thing" """)
+end MinimalApplication
