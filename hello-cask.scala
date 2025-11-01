@@ -1,13 +1,21 @@
 //> using scala 3.7.3
 //> using dep com.lihaoyi::cask:0.11.3
+//> using dep com.lihaoyi::scalatags:0.13.1
+
+import scalatags.Text.all._
 
 object MinimalApplication extends cask.MainRoutes:
   @cask.get("/")
   def hello() = 
     println("/ requested -- serving hello world")
-    "Hello World!\n"
+    doctype("html"):
+      html:
+        body(
+          h1("Hello World"),
+          p("I am cow")
+        )
   end hello
-
+  
   @cask.post("/do-thing")
   def doThing(request: cask.Request) = 
     val response = request.text().reverse
